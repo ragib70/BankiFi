@@ -33,7 +33,7 @@ function Main() {
         {/* <!-- Nav Bar --> */}
         <nav className="navbar navbar-expand-lg navbar-dark">
           <a className="navbar-brand" href="">
-            LP Project
+            BankiFi
           </a>
           <button
             className="navbar-toggler"
