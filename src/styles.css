@@ -1,0 +1,187 @@
+#title {
+  background-color: #ff4c68;
+  color: #fff;
+}
+
+.heading1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.container-fluid {
+  padding: 3% 15%;
+}
+
+body {
+  font-family: "Montserrat";
+  /* It removes the bottom scrolling bar from rendering */
+  overflow-x: hidden;
+}
+
+/* Navigation Bar */
+
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.navbar {
+  padding-bottom: 4.5rem;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+}
+
+.download-button {
+  margin: 5% 3% 5% 0%;
+}
+
+.image-dog {
+  width: 59%;
+  position: relative;
+  z-index: 1;
+  margin-left: 20%;
+}
+
+/* 2nd Section which contains the styling */
+
+#features {
+  padding: 2.5rem;
+  position: relative;
+  z-index: 10;
+  background-color: white;
+}
+
+.col-content {
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+
+.feature-element {
+  text-align: center;
+  padding: 0% 5%;
+  width: 25%;
+  margin: 10% 0px;
+}
+
+/* Testimonials Carousel slide show internal content styling */
+
+#testimonials {
+  text-align: center;
+  background-color: #ef8172;
+  color: white;
+}
+
+h2 {
+  padding: 10%;
+  padding-bottom: 2%;
+  color: white;
+}
+
+.testimonial-image {
+  width: 10%;
+  margin: 10px;
+  border-radius: 100%;
+}
+
+/* Press Sponsored section */
+
+#press {
+  text-align: center;
+  background-color: #ef8172;
+  padding: 5%;
+}
+
+.press-logo {
+  width: 10%;
+  margin: 5%;
+}
+
+/* Carousel Slide Show */
+
+.carousel-control-button:hover {
+  border-style: none;
+  background: #dd7162;
+  width: 12%;
+}
+
+.carousel-control-button {
+  border-style: none;
+  background: #ef8172;
+  width: 12%;
+}
+
+/* Section Pricing */
+
+#pricing {
+  text-align: center;
+  font-family: "Montserrat";
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+
+.pricing-header {
+  color: black;
+  font-weight: bold;
+}
+
+.card-body-title {
+  color: black;
+  font-weight: bold;
+}
+
+/* Media Query */
+@media (max-width: 1028px) {
+  #title {
+    text-align: center;
+  }
+
+  .image-dog {
+    position: static;
+    rotate: transform(0);
+  }
+}
+
+/* Call to action 2nd last section. */
+#cta {
+  padding: 10% 0% 10% 0%;
+  background-color: #ff4c68;
+  color: white;
+  text-align: center;
+}
+
+.cta-heading {
+  padding: 0% 32% 5% 32%;
+  font-weight: bold;
+}
+
+.cta-button-apple {
+  font-weight: bold;
+  color: white;
+  margin-right: 2%;
+}
+
+.cta-button-play {
+  color: black;
+  margin-left: 2%;
+  font-weight: bold;
+}
+
+/* footer copyright section */
+#footer {
+  margin: 5% 0% 5% 0%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.bgColorWhite {
+  background-color: #fff;
+}

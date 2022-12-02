@@ -1,5 +1,5 @@
 import React from "react";
-import { NETWORK } from "../../stores/networks";
+import { NETWORK } from "../../../backend/Stores/Networks";
 
 import { useWeb3React } from "@web3-react/core";
 //import { ExclamationCircleIcon } from "@heroicons/react/outline";

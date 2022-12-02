@@ -1,9 +1,9 @@
-import "../../styles.css";
+import "../../../styles.css";
 import { useState } from "react";
-import { injected } from "../Wallet/connectors";
+import { injected } from "../../../backend/Wallet/connectors";
 import { useWeb3React } from "@web3-react/core";
-import { setWeb3, useWalletStore } from "../../stores/walletStore";
-import { initContractsFromWeb3 } from "../../stores/contractStore";
+import { setWeb3, useWalletStore } from "../../../backend/Stores/walletStore";
+import { initContractsFromWeb3 } from "../../../backend/Stores/contractStore";
 
 function Main() {
   const { active, account, library, connector, activate, deactivate } =

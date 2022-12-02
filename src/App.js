@@ -1,14 +1,14 @@
 import "./App.css";
 import { useEffect } from "react";
-import Features from "./components/Features/features";
-import Footer from "./components/Footer/footer";
-import Main from "./components/Main/main";
+import Features from "./frontend/components/Features/features";
+import Footer from "./frontend/components/Footer/footer";
+import Main from "./frontend/components/Main/main";
 import Web3 from "web3";
-import WrongNetworkOverlay from "./components/WrongNetwork/wrongNetworkOverlay";
-import { NETWORK } from "./stores/networks";
-import { initContractsFromWeb3 } from "./stores/contractStore";
+import WrongNetworkOverlay from "./frontend/components/WrongNetwork/wrongNetworkOverlay";
+import { NETWORK } from "./backend/Stores/Networks";
+import { initContractsFromWeb3 } from "./backend/Stores/contractStore";
 import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
-import { setWeb3 } from "./stores/walletStore";
+import { setWeb3 } from "./backend/Stores/walletStore";
 
 function getLibrary(provider) {
   return new Web3(provider);

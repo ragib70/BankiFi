@@ -1,4 +1,4 @@
-import "../../styles.css";
+import "../../../styles.css";
 import { useState } from "react";
 import Modal1 from "../Modal1/modal1";
 import Modal2 from "../Modal2/modal2";
@@ -10,7 +10,7 @@ import {
   depositInstallmentToLender,
   checkPositionStatus,
   matchBorrowerWithLender,
-} from "../../actions/web3/bankiFiContractFunctions.js";
+} from "../../../backend/Actions/Web3/bankiFiContractFunctions.js";
 
 function Features() {
   const [modal1Show, setModal1Show] = useState(false);

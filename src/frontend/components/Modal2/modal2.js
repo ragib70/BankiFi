@@ -1,4 +1,4 @@
-import "../../styles.css";
+import "../../../styles.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form2 from "../Form2/form2";
