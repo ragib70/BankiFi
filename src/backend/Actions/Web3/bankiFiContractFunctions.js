@@ -148,7 +148,7 @@ function depositInstallmentToLender(tokenAddress, id) {
 }
 
 function checkPositionStatus(id) {
-  // Here the amount should be givrn in WEI which is 10^18 denomination.
+  // Here the amount should be given in WEI which is 10^18 denomination.
   const all41Exchange = useContractStore.getState().all41ExchangeContract;
 
   if (!all41Exchange) {
@@ -156,8 +156,9 @@ function checkPositionStatus(id) {
     return null;
   }
 
+  const weth = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";
   try {
-    return all41Exchange.methods.CorrectInstallment(id).send();
+    return all41Exchange.methods.CorrectInstallment(id, weth).send();
   } catch (error) {
     console.error("all41Exchange.methods.CorrectInstallment failed");
     return null;

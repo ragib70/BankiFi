@@ -9,7 +9,7 @@ function Form2(props) {
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>ENS Name</Form.Label>
+        <Form.Label>ENS Name / Address</Form.Label>
         <Form.Control
           type="text"
           placeholder="Borrower ENS Name"

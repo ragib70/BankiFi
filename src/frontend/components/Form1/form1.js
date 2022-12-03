@@ -33,6 +33,11 @@ function Form1(props) {
         />
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Time Locked</Form.Label>
+        <Form.Control type="number" placeholder="3 months" disabled readOnly />
+      </Form.Group>
+
       <Button
         variant="primary"
         className="carousel-control-button"

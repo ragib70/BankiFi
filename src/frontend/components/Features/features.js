@@ -9,7 +9,6 @@ import {
   depositAmountLender,
   depositInstallmentToLender,
   checkPositionStatus,
-  matchBorrowerWithLender,
   getBorrowerByID,
   getNumOfBorrowers,
   getLenderByID,
