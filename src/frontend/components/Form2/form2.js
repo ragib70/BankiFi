@@ -3,19 +3,18 @@ import Form from "react-bootstrap/Form";
 import { useState } from "react";
 
 function Form2(props) {
-  const [formId, setFormId] = useState("");
-  const [formURI, setFormURI] = useState("");
-  const [formTime, setFormTime] = useState("");
+  const [formEns, setFormEns] = useState("");
+  const [formNFTId, setFormNFTId] = useState("");
 
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Id</Form.Label>
+        <Form.Label>ENS Name</Form.Label>
         <Form.Control
-          type="number"
-          placeholder="Borrower Id"
+          type="text"
+          placeholder="Borrower ENS Name"
           onChange={(e) => {
-            setFormId(e.target.value);
+            setFormEns(e.target.value);
           }}
         />
         <Form.Text className="text-muted">
@@ -24,23 +23,12 @@ function Form2(props) {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>NFT URI</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="NFT URI as on IPFS"
-          onChange={(e) => {
-            setFormURI(e.target.value);
-          }}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Vesting Time</Form.Label>
+        <Form.Label>NFT Id</Form.Label>
         <Form.Control
           type="number"
-          placeholder="Time in months"
+          placeholder="NFT Token ID"
           onChange={(e) => {
-            setFormTime(e.target.value);
+            setFormNFTId(e.target.value);
           }}
         />
       </Form.Group>
@@ -49,7 +37,7 @@ function Form2(props) {
         variant="primary"
         className="carousel-control-button"
         onClick={() => {
-          props.function(formId, formURI, formTime);
+          props.function(formEns, formNFTId);
         }}
       >
         Submit

@@ -16,7 +16,7 @@ function Modal2(props) {
           id="contained-modal-title-vcenter"
           className="card-body-title"
         >
-          Match Borrower Lender
+          Sell Position
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="card-body-title">

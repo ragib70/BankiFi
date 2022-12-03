@@ -17,6 +17,7 @@ import {
 import { getNFTMetadataURIFromInfuraIPFS } from "../../../backend/Actions/InfuraIPFS/GetNFTMetadataURIFromInfuraIPFS";
 import { getNFTDataUsingCovalent } from "../../../backend/Actions/Covalent/GetNFTDataUsingCovalent";
 import { mintNFTUsingNFTPort } from "../../../backend/Actions/NFTPort/MintNFTUsingNFTPort";
+import { sendNotification } from "../../../backend/Actions/Push/PushNotificationUtil";
 
 function Features() {
   const [modal1Show, setModal1Show] = useState(false);
@@ -74,7 +75,7 @@ function Features() {
               onClick={() => setModal3Show(true)}
               className="bgColorWhite"
             >
-              <h3>Match</h3>
+              <h3>Sell NFT</h3>
             </Button>
           </h3>
         </div>
@@ -178,6 +179,22 @@ function Features() {
             tokenId2.toString(),
             uri
           );
+
+          // Push Integration.
+          await sendNotification(
+            borrowerData[0],
+            "Order booked",
+            `You order has been booked on BankiFi`,
+            `BankiFi order booked`,
+            `Hi, your order placed on BankiFi has been booked and an NFT has been minted to your wallet address.`
+          );
+          await sendNotification(
+            lenderData[0],
+            "Order booked",
+            `You order has been booked on BankiFi`,
+            `BankiFi order booked`,
+            `Hi, your order placed on BankiFi has been booked and an NFT has been minted to your wallet address.`
+          );
         }}
       />
       <Modal1
@@ -193,8 +210,9 @@ function Features() {
       <Modal2
         show={modal3Show}
         onHide={() => setModal3Show(false)}
-        function={async (id, uri, time) => {
-          await matchBorrowerWithLender(id, uri, time);
+        function={async (ensName, nftId) => {
+          //await matchBorrowerWithLender(id, uri);
+          console.log(ensName, nftId);
         }}
       />
       <Modal1
@@ -205,6 +223,23 @@ function Features() {
         placeholder="Borrower Id"
         function={async (tokenAddress, tokenAmount) => {
           await depositInstallmentToLender(tokenAddress, tokenAmount);
+
+          let borrowerId = await getNumOfBorrowers();
+          borrowerId -= 1;
+
+          // Get the borrower metadata.
+          const borrowerData = await getBorrowerByID(borrowerId);
+
+          // Get the lender Address
+          const lenderData = await getLenderByID(borrowerData[2] - 1);
+
+          await sendNotification(
+            lenderData[0],
+            "Installment Received",
+            `You installment has been received on BankiFi`,
+            `BankiFi installment received`,
+            `Hi, your monthly installemnt on BankiFi has been received and the amount has been credited to your wallet.`
+          );
         }}
       />
       <Modal3
