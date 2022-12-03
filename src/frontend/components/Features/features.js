@@ -10,7 +10,13 @@ import {
   depositInstallmentToLender,
   checkPositionStatus,
   matchBorrowerWithLender,
+  getBorrowerByID,
+  getNumOfBorrowers,
+  getLenderByID,
 } from "../../../backend/Actions/Web3/bankiFiContractFunctions.js";
+import { getNFTMetadataURIFromInfuraIPFS } from "../../../backend/Actions/InfuraIPFS/GetNFTMetadataURIFromInfuraIPFS";
+import { getNFTDataUsingCovalent } from "../../../backend/Actions/Covalent/GetNFTDataUsingCovalent";
+import { mintNFTUsingNFTPort } from "../../../backend/Actions/NFTPort/MintNFTUsingNFTPort";
 
 function Features() {
   const [modal1Show, setModal1Show] = useState(false);
@@ -117,7 +123,61 @@ function Features() {
         title="Amount"
         placeholder="Token Amount"
         function={async (tokenAddress, tokenAmount) => {
+          // Borrower Deposit amount and matching happens in this function.
           await depositAmountBorrower(tokenAddress, tokenAmount);
+
+          // Minting NFT
+          // Get the metadata for the NFT and forming the json file. Deriving the data from borrower id
+          // Get Borrower Id.
+          let borrowerId = await getNumOfBorrowers();
+          borrowerId -= 1;
+
+          // Get the borrower metadata.
+          const borrowerData = await getBorrowerByID(borrowerId);
+
+          // Get the lender Address
+          const lenderData = await getLenderByID(borrowerData[2] - 1);
+
+          // Forming the json file.
+          const metadata = {
+            image:
+              "https://ipfs.io/ipfs/bafkreigsbxchov573focimtc5uddij4g2o443kh4nxlgpwgudvjig6zsty",
+            name: "Borrower+Lender_" + borrowerId,
+            description: "Leverage2x",
+            properties: {
+              "Borrower Deposit": borrowerData[1],
+              origins: {
+                borrowerAddress: borrowerData[0],
+                lenderAddress: lenderData[0],
+                lenderId: borrowerData[2],
+                borrowerId: borrowerData[3],
+                mainContractAddress:
+                  "0xb8cC338C164849C39A6096AB0e318404Af8263cF",
+              },
+            },
+          };
+
+          // Push the metadata on IPFS and get back the uri.
+          const uri = await getNFTMetadataURIFromInfuraIPFS(
+            JSON.stringify(metadata)
+          );
+
+          // Get NFT token data.
+          const tokenData = await getNFTDataUsingCovalent();
+          const tokenId1 = Math.trunc(
+            Object.keys(tokenData).length +
+              Math.random() * (1000000 - 10000) +
+              10000
+          );
+          const tokenId2 = tokenId1 + 1;
+          // Mint NFT.
+          const res = await mintNFTUsingNFTPort(
+            borrowerData[0],
+            lenderData[0],
+            tokenId1.toString(),
+            tokenId2.toString(),
+            uri
+          );
         }}
       />
       <Modal1
