@@ -14,9 +14,15 @@ import {
   getLenderByID,
 } from "../../../backend/Actions/Web3/bankiFiContractFunctions.js";
 import { getNFTMetadataURIFromInfuraIPFS } from "../../../backend/Actions/InfuraIPFS/GetNFTMetadataURIFromInfuraIPFS";
-import { getNFTDataUsingCovalent } from "../../../backend/Actions/Covalent/GetNFTDataUsingCovalent";
+import {
+  getNFTDataUsingCovalent,
+  getTokenIDsUsingCovalent,
+} from "../../../backend/Actions/Covalent/GetNFTDataUsingCovalent";
 import { mintNFTUsingNFTPort } from "../../../backend/Actions/NFTPort/MintNFTUsingNFTPort";
 import { sendNotification } from "../../../backend/Actions/Push/PushNotificationUtil";
+import { transferAmountTo } from "../../../backend/Actions/Web3/usdcContractFunctions";
+import { resolveENSName } from "../../../backend/Actions/ENS/ResolveENSName";
+import { transferNFTUsingNFTPort } from "../../../backend/Actions/NFTPort/TransferNFTUsingNFTPort";
 
 function Features() {
   const [modal1Show, setModal1Show] = useState(false);
@@ -209,9 +215,30 @@ function Features() {
       <Modal2
         show={modal3Show}
         onHide={() => setModal3Show(false)}
-        function={async (ensName, nftId) => {
+        function={async (ensName, borrowerId) => {
           //await matchBorrowerWithLender(id, uri);
-          console.log(ensName, nftId);
+          console.log(ensName, borrowerId);
+          // await transferAmountTo(ensName, borrowerId);
+          // Get the borrower metadata.
+          const borrowerData = await getBorrowerByID(borrowerId);
+          const borrowerAddr = borrowerData[0];
+          console.log(borrowerAddr);
+
+          // Get NFT token data.
+          const tokenId = await getTokenIDsUsingCovalent(borrowerAddr);
+
+          // Get address from ENS name
+          let transferToAddr = ensName;
+          if (ensName.slice(0, 2) !== "0x") {
+            transferToAddr = await resolveENSName(ensName);
+          }
+
+          console.log(transferToAddr);
+          const res = await transferNFTUsingNFTPort(
+            transferToAddr,
+            tokenId.toString()
+          );
+          console.log(res);
         }}
       />
       <Modal1

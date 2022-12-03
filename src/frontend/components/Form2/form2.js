@@ -23,10 +23,10 @@ function Form2(props) {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>NFT Id</Form.Label>
+        <Form.Label>Borrower Id</Form.Label>
         <Form.Control
           type="number"
-          placeholder="NFT Token ID"
+          placeholder="Borrower ID"
           onChange={(e) => {
             setFormNFTId(e.target.value);
           }}
