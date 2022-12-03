@@ -84,8 +84,22 @@ function depositAmountBorrower(tokenAddress, amount) {
     return null;
   }
 
+  const usdc = tokenAddress;
+  const weth = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";
+  const _timeMonths = 3;
+  const installment = 1;
+
   try {
-    return all41Exchange.methods.borrowerDeposit(tokenAddress, amount).send();
+    return all41Exchange.methods
+      .borrowerDeposit(
+        tokenAddress,
+        amount,
+        usdc,
+        weth,
+        _timeMonths,
+        installment
+      )
+      .send();
   } catch (error) {
     console.error("all41Exchange.methods.borrowerDeposit failed");
     return null;
