@@ -142,7 +142,7 @@ function Features() {
           const borrowerData = await getBorrowerByID(borrowerId);
 
           // Get the lender Address
-          const lenderData = await getLenderByID(borrowerData[2] - 1);
+          const lenderData = await getLenderByID(borrowerData[2]);
 
           // Forming the json file.
           const metadata = {
