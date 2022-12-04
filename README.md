@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+The problem BankiFi solves:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In general Defi system, we identified the following flaws :
 
-## Available Scripts
+No escrow contract model exists, where the user and borrower can interface one-to-one like an order-book model, and open a position where the lender earns fixed APY, while the borrower gets a 2x loan on some appreciating asset.
 
-In the project directory, you can run:
+In a position where any of the participants involved want to get out of the position, they would need to liquidate it at the current price resulting in an impermanent loss.
 
-### `npm start`
+No easy way of swapping positions over a secondary marketplace.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Our project provides a platform for 2 participants to benefit each other from their assets.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Workflow :
 
-### `npm test`
+Let's suppose a user(lender) is sitting on a pile of USDC in his wallet and wishes to earn some fixed interest. He can come to our platform and deposit 100 USDC into our platform. A user(borrower) is bullish about the market and wants to purchase 200 USDC worth of ETH, but has only 100 USDC. He can deposit 100 USDC on our platform, we will convert 100 USDC from the lender + 100 USDC from the borrower into ETH and lock in the contract. Fixed interest of say 18% is agreed upon by the borrower to the lender as his APY for a fixed duration. Once the duration completes, the locked ETH is passed to the borrower and the position is closed. For the proof of position holding, at the time of match between borrower and lender, we mint 2 ERC1155 NFTs and transfer 1 to the borrower and 1 to the lender with metadata of all the position specifics. If any of the users wish to step out of the position then instead of liquidating their position they can sell off their NFTs on a secondary marketplace, and now the NFT purchaser gets into the position and he will either pay or receive the APY.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Challenges we ran into
+On opening a position between borrower and lender, the borrower is fixed a particular installment to pay the lender. The calculation of this installment based on market conditions is very complex, as we need to take care of multiple finance indicators and markup into mind. As of time constraint, we implemented a fixed APY depending upon the current price of WETH locked.
 
-### `npm run build`
+We used Covalent API for querying blockchain to get multiple onchain data like NFT token ids, NFT data etc which in many scenarios return stale data. We have added delay and added states to not progress further the function calls if the data is stale.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+One challenge was to make it cross-chain. We wanted to not only use the polygon mainnet whereas other chains, so that any borrower and lenders of other chains could interact with each other to have greater match. We tried integrating Router, Connext, LiFi etc but the API's were not easy to understand considering the time constraints, so dropped the idea.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+We have implemnted ENS for fetching the address from ENS name. It was not using the web3 provider we are using to interact with blockchain for signing transaction, then we used infura separately for ens for the usecase of fetching address.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+BankiFi dApp:
+ https://bafybeibn2iicqsdqn7hvzlq2lznjtn2xp7dri267ztyfpi2ehqznxnqn3i.ipfs.gateway.valist.io/
 
-### `npm run eject`
+ Contract address:
+ 0xb8cC338C164849C39A6096AB0e318404Af8263cF
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ NFT contract address:
+ 0xBB3aa6009df7dDa5763Ed2Ed77B6D19e9384D955
